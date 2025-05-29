@@ -11,17 +11,18 @@
 	</parent>
 
 	<groupId>com.medicalapp</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>patients-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>medical-sas-api</name>
-	<description>Sistema de API Médica</description>
+	<name>patients-service</name>
+	<description>Microservice for Patient Management</description>
 
 	<properties>
-		<java.version>24</java.version>
-		<maven.compiler.release>24</maven.compiler.release>
+		<java.version>17</java.version>
+		<maven.compiler.release>17</maven.compiler.release>
 		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
 		<lombok.version>1.18.32</lombok.version>
-		<argLine>--enable-preview --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</argLine>
+		<!-- Updated argLine for Java 17, removed --enable-preview and jdk.compiler specific add-opens -->
+		<argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
 	</properties>
 
 	<dependencies>
@@ -49,9 +50,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- Oracle JDBC Driver -->
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -79,7 +82,7 @@
 
 	<build>
 		<plugins>
-			<!-- Maven Compiler Plugin configurado para Java 24 -->
+			<!-- Maven Compiler Plugin configured for Java 17 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -87,9 +90,9 @@
 				<configuration>
 					<release>${maven.compiler.release}</release>
 					<compilerArgs>
-						<arg>--enable-preview</arg>
+						<!-- <arg>--enable-preview</arg> --> <!-- Removed for Java 17 unless specific preview features are needed -->
 						<arg>-Xlint:all</arg>
-						<arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+						<!-- <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg> --> <!-- Removed for Java 17 -->
 					</compilerArgs>
 					<fork>true</fork>
 					<meminitial>1024m</meminitial>
@@ -110,9 +113,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<jvmArguments>
-						--enable-preview
+						<!-- --enable-preview --> <!-- Removed for Java 17 unless specific preview features are needed -->
 						--add-opens java.base/java.lang=ALL-UNNAMED
-						--add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+						<!-- --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED --> <!-- Removed for Java 17 -->
 					</jvmArguments>
 					<excludes>
 						<exclude>
@@ -123,7 +126,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Maven Surefire Plugin para testes -->
+			<!-- Maven Surefire Plugin for tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
