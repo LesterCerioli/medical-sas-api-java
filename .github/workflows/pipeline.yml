@@ -28,11 +28,11 @@ jobs:
     - name: Set executable permissions
       run: chmod +x ./mvnw  # Adicione esta linha
       
-    - name: Setup Java 24 (Early Access)
+    - name: Setup Java 17 (Early Access)
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '24-ea'
+        java-version: '17-ea'
         check-latest: true
         
     - name: Validate Java version
